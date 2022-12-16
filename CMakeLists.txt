@@ -54,6 +54,7 @@ include_directories(${angledep}/ext/cwgl/angle/include
     ${ANGLE_VMA_ROOT}/include
     ${ANGLE_VULKAN_HEADERS_ROOT}/include)
 add_library(fakeopengl32 MODULE 
+    OpenGL32.def
     vma_gen.cpp
     dll.c)
 

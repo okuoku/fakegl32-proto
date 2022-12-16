@@ -1,0 +1,15 @@
+LIBRARY OpenGL32
+
+EXPORTS
+    glDisable
+    glEnable
+    wglCreateContext
+    wglMakeCurrent
+    wglGetCurrentDC
+    wglGetCurrentContext
+    wglDeleteContext
+    wglGetProcAddress
+    wglShareLists
+    wglChoosePixelFormat
+    wglDescribePixelFormat
+    wglSetPixelFormat

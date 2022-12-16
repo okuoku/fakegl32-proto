@@ -6,7 +6,7 @@
 #define EGLAPIENTRY __stdcall
 #define EGL_NO_PLATFORM_SPECIFIC_TYPES
 #include <EGL/egl.h>
-#define EXPORT __declspec(dllexport) __cdecl
+#define EXPORT __declspec(dllexport) __stdcall
 
 void __stdcall gl4es_glDisable(int);
 void __stdcall gl4es_glEnable(int);
