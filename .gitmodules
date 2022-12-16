@@ -1,0 +1,6 @@
+[submodule "gl4es"]
+	path = gl4es
+	url = https://github.com/ptitSeb/gl4es/
+[submodule "yfrmbase"]
+	path = yfrmbase
+	url = https://github.com/okuoku/yfrmbase
