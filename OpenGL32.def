@@ -59,6 +59,47 @@ EXPORTS
     glTexParameteri
     glVertex2i
     glVertexPointer
+    glBlendFunc
+    glPolygonOffset
+    glReadPixels
+    glTexCoord2f
+    glTexImage1D
+    glVertex2f
+    glColor3fv
+    glColor4fv
+    glColor4sv
+    glColor4ubv
+    glColor4usv
+    glFinish
+    glFlush
+    glNormal3fv
+    glVertex2sv
+    glVertex4f
+    glAlphaFunc
+    glClipPlane
+    glColorMaterial
+    glCullFace
+    glDepthFunc
+    glDepthMask
+    glDepthRange
+    glFrontFace
+    glLightModelfv
+    glLightf
+    glLightfv
+    glLineStipple
+    glLoadMatrixf
+    glMaterialf
+    glPointSize
+    glPolygonMode
+    glPopMatrix
+    glPushMatrix
+    glShadeModel
+    glStencilFunc
+    glStencilMask
+    glStencilOp
+    glTexEnvfv
+    glTexGenfv
+    glTexGeni
     wglCreateContext
     wglMakeCurrent
     wglGetCurrentDC
@@ -67,5 +108,7 @@ EXPORTS
     wglGetProcAddress
     wglShareLists
     wglChoosePixelFormat
-    wglDescribePixelFormat
+    wglGetPixelFormat
     wglSetPixelFormat
+    wglDescribePixelFormat
+    wglSwapBuffers

@@ -78,6 +78,48 @@ void __stdcall gl4es_glTexEnvi(int target, int name, int p);
 void __stdcall gl4es_glVertex2i(int x, int y);
 void __stdcall gl4es_glVertexPointer(int size, int type, size_t stride, void* ptr);
 
+void __stdcall gl4es_glBlendFunc(int s, int d);
+void __stdcall gl4es_glPolygonOffset(float f, float u);
+void __stdcall gl4es_glReadPixels(int x, int y, size_t width, size_t height, int format, int type, void* ptr);
+void __stdcall gl4es_glTexCoord2f(float x, float y);
+void __stdcall gl4es_glTexImage1D(int target, int level, int internalformat, size_t width, int border, int format, int type, void* ptr);
+void __stdcall gl4es_glVertex2f(float x, float y);
+
+void __stdcall gl4es_glColor3fv(float* f);
+void __stdcall gl4es_glColor4fv(float* f);
+void __stdcall gl4es_glColor4sv(short* v);
+void __stdcall gl4es_glColor4ubv(uint8_t* v);
+void __stdcall gl4es_glColor4usv(unsigned short* v);
+void __stdcall gl4es_glNormal3fv(float* f);
+void __stdcall gl4es_glVertex2sv(float* f);
+void __stdcall gl4es_glVertex4f(float x, float y, float z, float w);
+
+void __stdcall gl4es_glAlphaFunc(int func, float ref);
+void __stdcall gl4es_glClipPlane(int p, double* ptr);
+void __stdcall gl4es_glColorMaterial(int f, int mode);
+void __stdcall gl4es_glCullFace(int mode);
+void __stdcall gl4es_glDepthFunc(int func);
+void __stdcall gl4es_glDepthMask(int b);
+void __stdcall gl4es_glDepthRange(double n, double f);
+void __stdcall gl4es_glFrontFace(int m);
+void __stdcall gl4es_glLightModelfv(int p, float* ptr);
+void __stdcall gl4es_glLightf(int l, int p, float f);
+void __stdcall gl4es_glLightfv(int l, int p, float* ptr);
+void __stdcall gl4es_glLineStipple(int f, unsigned short pat);
+void __stdcall gl4es_glLoadMatrixf(float* ptr);
+void __stdcall gl4es_glMaterialf(int face, int pname, float param);
+void __stdcall gl4es_glPointSize(float f);
+void __stdcall gl4es_glPolygonMode(int f, int m);
+void __stdcall gl4es_glPopMatrix(void);
+void __stdcall gl4es_glPushMatrix(void);
+void __stdcall gl4es_glShadeModel(int mode);
+void __stdcall gl4es_glStencilFunc(int m, int ref, int mask);
+void __stdcall gl4es_glStencilMask(int mask);
+void __stdcall gl4es_glStencilOp(int fail, int zfail, int zpass);
+void __stdcall gl4es_glTexEnvfv(int target, int param, float* params);
+void __stdcall gl4es_glTexGenfv(int c, int p, float* params);
+void __stdcall gl4es_glTexGeni(int c, int p, int param);
+
 /* GL1.0 calls */
 
 void EXPORT glDisable(int x){
@@ -318,6 +360,169 @@ void EXPORT glVertexPointer(int size, int type, size_t stride, void* ptr){
     gl4es_glVertexPointer(size, type, stride, ptr);
 }
 
+/* util in wine */
+
+void EXPORT glBlendFunc(int s, int d){
+    gl4es_glBlendFunc(s, d);
+}
+
+void EXPORT glPolygonOffset(float f, float u){
+    gl4es_glPolygonOffset(f, u);
+}
+
+void EXPORT glReadPixels(int x, int y, size_t width, size_t height, int format, int type, void* ptr){
+    gl4es_glReadPixels(x, y, width, height, format, type, ptr);
+}
+
+void EXPORT glTexCoord2f(float x, float y){
+    /* Not found in MS reference ..? */
+    gl4es_glTexCoord2f(x, y);
+}
+
+void EXPORT glTexImage1D(int target, int level, int internalformat, size_t width, int border, int format, int type, void* ptr){
+    gl4es_glTexImage1D(target, level, internalformat, width, border, format, type, ptr);
+}
+
+void EXPORT glVertex2f(float x, float y){
+    gl4es_glVertex2f(x, y);
+}
+
+/* more adapter in wine */
+
+void EXPORT glColor3fv(float* f){
+    gl4es_glColor3fv(f);
+}
+
+void EXPORT glColor4fv(float* f){
+    gl4es_glColor4fv(f);
+}
+
+void EXPORT glColor4sv(short* v){
+    gl4es_glColor4sv(v);
+}
+
+void EXPORT glColor4ubv(uint8_t* v){
+    gl4es_glColor4ubv(v);
+}
+
+void EXPORT glColor4usv(unsigned short* v){
+    gl4es_glColor4usv(v);
+}
+
+void EXPORT glNormal3fv(float* f){
+    gl4es_glNormal3fv(f);
+}
+
+void EXPORT glVertex2sv(float* f){
+    gl4es_glVertex2sv(f);
+}
+
+void EXPORT glVertex4f(float x, float y, float z, float w){
+    gl4es_glVertex4f(x, y, z, w);
+}
+
+/* state in wine */
+
+void EXPORT glAlphaFunc(int func, float ref){
+    gl4es_glAlphaFunc(func, ref);
+}
+
+void EXPORT glClipPlane(int p, double* ptr){
+    gl4es_glClipPlane(p, ptr);
+}
+
+void EXPORT glColorMaterial(int f, int mode){
+    gl4es_glColorMaterial(f, mode);
+}
+
+void EXPORT glCullFace(int mode){
+    gl4es_glCullFace(mode);
+}
+
+void EXPORT glDepthFunc(int func){
+    gl4es_glDepthFunc(func);
+}
+
+void EXPORT glDepthMask(int b){
+    gl4es_glDepthMask(b);
+}
+
+void EXPORT glDepthRange(double n, double f){
+    gl4es_glDepthRange(n, f);
+}
+
+void EXPORT glFrontFace(int m){
+    gl4es_glFrontFace(m);
+}
+
+void EXPORT glLightModelfv(int p, float* ptr){
+    gl4es_glLightModelfv(p, ptr);
+}
+
+void EXPORT glLightf(int l, int p, float f){
+    gl4es_glLightf(l, p, f);
+}
+
+void EXPORT glLightfv(int l, int p, float* ptr){
+    gl4es_glLightfv(l, p, ptr);
+}
+void EXPORT glLineStipple(int f, unsigned short pat){
+    gl4es_glLineStipple(f, pat);
+}
+
+void EXPORT glLoadMatrixf(float* ptr){
+    gl4es_glLoadMatrixf(ptr);
+}
+
+void EXPORT glMaterialf(int face, int pname, float param){
+    gl4es_glMaterialf(face, pname, param);
+}
+
+void EXPORT glPointSize(float f){
+    gl4es_glPointSize(f);
+}
+
+void EXPORT glPolygonMode(int f, int m){
+    gl4es_glPolygonMode(f, m);
+}
+
+void EXPORT glPopMatrix(void){
+    gl4es_glPopMatrix();
+}
+
+void EXPORT glPushMatrix(void){
+    gl4es_glPushMatrix();
+}
+
+void EXPORT glShadeModel(int mode){
+    gl4es_glShadeModel(mode);
+}
+
+void EXPORT glStencilFunc(int m, int ref, int mask){
+    gl4es_glStencilFunc(m, ref, mask);
+}
+
+void EXPORT glStencilMask(int mask){
+    gl4es_glStencilMask(mask);
+}
+
+void EXPORT glStencilOp(int fail, int zfail, int zpass){
+    gl4es_glStencilOp(fail, zfail, zpass);
+}
+
+void EXPORT glTexEnvfv(int target, int param, float* params){
+    gl4es_glTexEnvfv(target, param, params);
+}
+
+void EXPORT glTexGenfv(int c, int p, float* params){
+    gl4es_glTexGenfv(c, p, params);
+}
+
+void EXPORT glTexGeni(int c, int p, int param){
+    gl4es_glTexGeni(c, p, param);
+}
+
+
 
 /* WGL: Context */
 typedef struct __tag__glrc {
@@ -479,5 +684,19 @@ int EXPORT wglSetPixelFormat(uintptr_t hdc, int fmt, uintptr_t p){
     return 1;
 }
 
+int EXPORT wglGetPixelFormat(uintptr_t hdc, int fmt, uintptr_t p){
+    printf("DUMMY: wglGetPixelFormat (did nothing)\n");
+    // Returning zero leads corrupting EBX register...
+    return 1;
+}
 
+int EXPORT wglSwapBuffers(uintptr_t hdc){
+    if(current_context){
+        printf("DUMMY: wglSwapBuffers\n");
+        eglSwapBuffers(current_context->disp, current_context->surf);
+    }else{
+        printf("DUMMY: wglSwapBuffers (did nothing)\n");
+    }
+    return 1;
+}
 
