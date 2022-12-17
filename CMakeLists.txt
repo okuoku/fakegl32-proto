@@ -59,6 +59,8 @@ include_directories(${angledep}/ext/cwgl/angle/include
     ${ANGLE_VULKAN_HEADERS_ROOT}/include)
 add_library(fakeopengl32 MODULE 
     OpenGL32.def
+    console.c
+    fakepixelformat.c
     dll.c)
 
 target_link_libraries(fakeopengl32

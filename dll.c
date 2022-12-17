@@ -330,7 +330,8 @@ static glrc* current_context;
 static int initialized = 0;
 
 
-void set_getprocaddress(void* func);
+void initconsole(void);
+void set_getprocaddress(void* func); /* gl4es */
 
 static uintptr_t __stdcall
 my_getprocaddress(const char* name){
@@ -341,6 +342,7 @@ my_getprocaddress(const char* name){
 
 static void
 ensure_glinit(void){
+    initconsole();
     if(! initialized){
         set_getprocaddress(my_getprocaddress);
         initialize_gl4es();
@@ -463,9 +465,12 @@ int EXPORT wglChoosePixelFormat(uintptr_t hdc, uintptr_t p){
     return 1;
 }
 
-int EXPORT wglDescribePixelFormat(void){
-    printf("DUMMY: wglDescribePixelFormat (did nothing)\n");
-    return 0;
+void fill_fakepixelformat(void* out, long pfd_size);
+
+int EXPORT wglDescribePixelFormat(uintptr_t hdc, int idx, int bytes, void* ptr){
+    printf("DUMMY: wglDescribePixelFormat (filled fixed value)\n");
+    fill_fakepixelformat(ptr, bytes);
+    return 1; /* Max idx */
 }
 
 int EXPORT wglSetPixelFormat(uintptr_t hdc, int fmt, uintptr_t p){
