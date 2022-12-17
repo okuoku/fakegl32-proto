@@ -599,7 +599,9 @@ uintptr_t EXPORT wglCreateContext(uintptr_t hdc){
     eglInitialize(r->disp, &ver0, &ver1);
     eglBindAPI(EGL_OPENGL_ES_API);
     eglChooseConfig(r->disp, attr, &cfg, 1, &numcfg);
-    r->surf = eglCreateWindowSurface(r->disp, cfg, hwnd, attr);
+    // FIXME: Choose EGL_RENDER_BUFFER: EGL_BACK_BUFFER (but it's default)
+    //        And maybe EGL_SWAP_INTERVAL_ANGLE??
+    r->surf = eglCreateWindowSurface(r->disp, cfg, hwnd, NULL);
     r->ctx = eglCreateContext(r->disp, cfg, NULL, ctxattr);
 
     // FIXME: Make it current immediately so we can resolve
