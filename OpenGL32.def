@@ -3,6 +3,62 @@ LIBRARY OpenGL32
 EXPORTS
     glDisable
     glEnable
+    glHint
+    glFinish
+    glGetError
+    glGetString
+    glGetIntegerv
+    glGetFloatv
+    glBegin
+    glEnd
+    glVertex3f
+    glVertex3fv
+    glVertex4s
+    glVertex4fv
+    glColor4ub
+    glClear
+    glClearColor
+    glViewport
+    glFogf
+    glFogfv
+    glFogi
+    glGenTextures
+    glDeleteTextures
+    glBindTexture
+    glTexParameteri
+    glGetTexLevelParameteriv
+    glTexImage2D
+    glTexSubImage2D
+    glGetTexImage
+    glDisableClientState
+    glEnableClientState
+    glClearDepth
+    glClearStencil
+    glColor4f
+    glColorMask
+    glColorPointer
+    glDrawArrays
+    glDrawBuffer
+    glDrawElements
+    glFlush
+    glLightModeli
+    glLoadIdentity
+    glLoadMatrixd
+    glMaterialfv
+    glMatrixMode
+    glNormal3f
+    glNormalPointer
+    glPixelStorei
+    glReadBuffer
+    glScissor
+    glTexCoord3fv
+    glTexCoord4f
+    glTexCoordPointer
+    glTexEnvf
+    glTexEnvi
+    glTexParameteri
+    glVertex2i
+    glVertexPointer
     wglCreateContext
     wglMakeCurrent
     wglGetCurrentDC

@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.0)
 project(fakegl C CXX)
 
+if(MSVC)
+    add_compile_options(/MP)
+endif()
+
 set(angledep ${CMAKE_CURRENT_LIST_DIR}/yfrmbase)
 
 # Configure SPIR-V
@@ -55,7 +59,6 @@ include_directories(${angledep}/ext/cwgl/angle/include
     ${ANGLE_VULKAN_HEADERS_ROOT}/include)
 add_library(fakeopengl32 MODULE 
     OpenGL32.def
-    vma_gen.cpp
     dll.c)
 
 target_link_libraries(fakeopengl32
