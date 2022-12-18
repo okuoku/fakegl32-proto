@@ -532,6 +532,7 @@ typedef struct __tag__glrc {
     EGLContext ctx;
 }glrc;
 static glrc* current_context;
+static EGLContext global_egl_context = 0;
 static int initialized = 0;
 
 
@@ -595,14 +596,23 @@ uintptr_t EXPORT wglCreateContext(uintptr_t hdc){
     glrc* r = malloc(sizeof(glrc));
     r->hDC = hdc;
     hwnd = WindowFromDC(hdc);
-    r->disp = eglGetDisplay(hdc);
-    eglInitialize(r->disp, &ver0, &ver1);
-    eglBindAPI(EGL_OPENGL_ES_API);
+    // FIXME: Perhaps we have to instantiate display with hDC instead
+    r->disp = eglGetDisplay(EGL_DEFAULT_DISPLAY);
+    //r->disp = eglGetDisplay(hdc);
+    if(! global_egl_context){
+        eglInitialize(r->disp, &ver0, &ver1);
+        eglBindAPI(EGL_OPENGL_ES_API);
+    }
     eglChooseConfig(r->disp, attr, &cfg, 1, &numcfg);
     // FIXME: Choose EGL_RENDER_BUFFER: EGL_BACK_BUFFER (but it's default)
     //        And maybe EGL_SWAP_INTERVAL_ANGLE??
     r->surf = eglCreateWindowSurface(r->disp, cfg, hwnd, NULL);
-    r->ctx = eglCreateContext(r->disp, cfg, NULL, ctxattr);
+
+    // FIXME: gl4es can only hold a context at once
+    if(! global_egl_context){
+        global_egl_context = eglCreateContext(r->disp, cfg, NULL, ctxattr);
+    }
+    r->ctx = global_egl_context;
 
     // FIXME: Make it current immediately so we can resolve
     //        APIs now
@@ -619,6 +629,9 @@ int EXPORT wglMakeCurrent(uintptr_t hdc, uintptr_t ptr){
     if(ptr){
         /* FIXME: Check hdc compatibility */
         current_context = r;
+        if(hdc != r->hDC){
+            printf("ERR: wrong hDC %lx vs. %lx\n",hdc,r->hDC);
+        }
         eglMakeCurrent(r->disp, r->surf, r->surf, r->ctx);
     }else{
         /* FIXME: Uncurrent EGL here */
@@ -695,6 +708,13 @@ int EXPORT wglGetPixelFormat(uintptr_t hdc, int fmt, uintptr_t p){
 int EXPORT wglSwapBuffers(uintptr_t hdc){
     if(current_context){
         printf("DUMMY: wglSwapBuffers\n");
+        printf("SWAP: %lx:%lx:%lx / %lx:%lx:%lx\n", 
+               (long)eglGetCurrentContext(),
+               (long)eglGetCurrentDisplay(),
+               (long)eglGetCurrentSurface(EGL_DRAW),
+               (long)current_context->ctx,
+               (long)current_context->disp,
+               (long)current_context->surf);
         eglSwapBuffers(current_context->disp, current_context->surf);
     }else{
         printf("DUMMY: wglSwapBuffers (did nothing)\n");
