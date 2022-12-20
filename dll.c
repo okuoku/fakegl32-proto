@@ -589,6 +589,11 @@ uintptr_t EXPORT wglCreateContext(uintptr_t hdc){
         EGL_NATIVE_VISUAL_TYPE, EGL_DONT_CARE,
         EGL_NONE
     };
+    EGLint wndattr[] = {
+        // https://github.com/google/angle/blob/main/extensions/EGL_ANGLE_surface_orientation.txt
+        0x33a8, 2,
+        EGL_NONE
+    };
     EGLint ctxattr[] = {
         EGL_CONTEXT_CLIENT_VERSION, 2,  /* ES2 */
         EGL_NONE
@@ -606,7 +611,7 @@ uintptr_t EXPORT wglCreateContext(uintptr_t hdc){
     eglChooseConfig(r->disp, attr, &cfg, 1, &numcfg);
     // FIXME: Choose EGL_RENDER_BUFFER: EGL_BACK_BUFFER (but it's default)
     //        And maybe EGL_SWAP_INTERVAL_ANGLE??
-    r->surf = eglCreateWindowSurface(r->disp, cfg, hwnd, NULL);
+    r->surf = eglCreateWindowSurface(r->disp, cfg, hwnd, &wndattr);
 
     // FIXME: gl4es can only hold a context at once
     if(! global_egl_context){
