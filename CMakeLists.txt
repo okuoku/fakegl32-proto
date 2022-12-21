@@ -52,6 +52,7 @@ set(NO_LOADER ON CACHE BOOL "" FORCE)
 set(NOX11 ON CACHE BOOL "" FORCE)
 set(NOEGL ON CACHE BOOL "" FORCE)
 
+add_definitions(-DGL4ES_COMPILE_FOR_USE_IN_SHARED_LIB)
 add_subdirectory(gl4es)
 include_directories(${angledep}/ext/cwgl/angle/include
     # VMA
