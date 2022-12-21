@@ -57,6 +57,11 @@ include_directories(${angledep}/ext/cwgl/angle/include
     # VMA
     ${ANGLE_VMA_ROOT}/include
     ${ANGLE_VULKAN_HEADERS_ROOT}/include)
+
+add_library(glu32 SHARED
+    GLU32.def
+    dummy.cpp)
+
 add_library(fakeopengl32 MODULE 
     OpenGL32.def
     console.c
@@ -64,6 +69,7 @@ add_library(fakeopengl32 MODULE
     dll.c)
 
 target_link_libraries(fakeopengl32
+    glu32
     OPENGL32
     SPIRV-Tools-static
     glslang
