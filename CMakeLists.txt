@@ -78,3 +78,14 @@ target_link_libraries(fakeopengl32
     SPIRV
     angle_static)
 
+if(COPY_TARGET)
+    message(STATUS "Adding copy target to ${COPY_TARGET}")
+    add_custom_command(TARGET glu32 POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE:glu32> "${COPY_TARGET}/glu32.dll"
+        COMMENT "Installing (fake) GLU32.dll to ${COPY_TARGET}/glu32.dll")
+    add_custom_command(TARGET fakeopengl32 POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE:fakeopengl32> "${COPY_TARGET}/opengl32.dll"
+        COMMENT "Installing (fake) OPENGL32.dll to ${COPY_TARGET}/opengl32.dll")
+endif()
