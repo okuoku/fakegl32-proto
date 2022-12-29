@@ -9,6 +9,7 @@
 #define EXPORT __declspec(dllexport) __stdcall
 
 void initialize_gl4es(void);
+void close_gl4es(void);
 
 void __stdcall gl4es_glDisable(int);
 void __stdcall gl4es_glEnable(int);
@@ -622,6 +623,11 @@ uintptr_t EXPORT wglCreateContext(uintptr_t hdc){
     // FIXME: Make it current immediately so we can resolve
     //        APIs now
     eglMakeCurrent(r->disp, r->surf, r->surf, r->ctx);
+
+    if(initialized){
+        close_gl4es();
+        initialized = 0;
+    }
 
     ensure_glinit();
 
