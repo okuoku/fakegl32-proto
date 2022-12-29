@@ -592,7 +592,7 @@ uintptr_t EXPORT wglCreateContext(uintptr_t hdc){
     };
     EGLint wndattr[] = {
         // https://github.com/google/angle/blob/main/extensions/EGL_ANGLE_surface_orientation.txt
-        0x33a8, 2,
+        //0x33a8, 2,
         EGL_NONE
     };
     EGLint ctxattr[] = {
@@ -617,6 +617,10 @@ uintptr_t EXPORT wglCreateContext(uintptr_t hdc){
 
     // FIXME: gl4es can only hold a context at once
     if(! global_egl_context){
+        global_egl_context = eglCreateContext(r->disp, cfg, NULL, ctxattr);
+    }
+    else {
+        eglDestroyContext(r->disp, global_egl_context);
         global_egl_context = eglCreateContext(r->disp, cfg, NULL, ctxattr);
     }
     r->ctx = global_egl_context;
@@ -706,19 +710,20 @@ int EXPORT wglDescribePixelFormat(uintptr_t hdc, int idx, int bytes, void* ptr){
 }
 
 int EXPORT wglSetPixelFormat(uintptr_t hdc, int fmt, uintptr_t p){
-    printf("DUMMY: wglSetPixelFormat (did nothing)\n");
+    printf("DUMMY: wglSetPixelFormat %d (did nothing)\n", fmt);
     // Returning zero leads corrupting EBX register...
     return 1;
 }
 
-int EXPORT wglGetPixelFormat(uintptr_t hdc, int fmt, uintptr_t p){
-    printf("DUMMY: wglGetPixelFormat (did nothing)\n");
+int EXPORT wglGetPixelFormat(uintptr_t hdc){
+    //printf("DUMMY: wglGetPixelFormat (did nothing)\n");
     // Returning zero leads corrupting EBX register...
     return 1;
 }
 
 int EXPORT wglSwapBuffers(uintptr_t hdc){
     if(current_context){
+#if 0
         printf("DUMMY: wglSwapBuffers\n");
         printf("SWAP: %lx:%lx:%lx / %lx:%lx:%lx\n", 
                (long)eglGetCurrentContext(),
@@ -727,6 +732,7 @@ int EXPORT wglSwapBuffers(uintptr_t hdc){
                (long)current_context->ctx,
                (long)current_context->disp,
                (long)current_context->surf);
+#endif
         eglSwapBuffers(current_context->disp, current_context->surf);
     }else{
         printf("DUMMY: wglSwapBuffers (did nothing)\n");
