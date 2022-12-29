@@ -571,7 +571,7 @@ uintptr_t EXPORT wglCreateContext(uintptr_t hdc){
         EGL_BLUE_SIZE, 8,
         EGL_ALPHA_SIZE, 0,
         EGL_COLOR_BUFFER_TYPE, EGL_RGB_BUFFER,
-        EGL_DEPTH_SIZE, EGL_DONT_CARE,
+        EGL_DEPTH_SIZE, 24,
         EGL_LEVEL, 0,
         EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
         EGL_SAMPLE_BUFFERS, 0,
@@ -599,6 +599,7 @@ uintptr_t EXPORT wglCreateContext(uintptr_t hdc){
         EGL_CONTEXT_CLIENT_VERSION, 2,  /* ES2 */
         EGL_NONE
     };
+
     glrc* r = malloc(sizeof(glrc));
     r->hDC = hdc;
     hwnd = WindowFromDC(hdc);
