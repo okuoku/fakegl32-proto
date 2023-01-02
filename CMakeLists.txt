@@ -44,6 +44,8 @@ set(ANGLE_SPIRV_CROSS_ROOT ${angledep}/ext/cwgl/SPIRV-Cross)
 set(ANGLE_ROOT ${angledep}/ext/cwgl/angle)
 set(CHROMIUM_ZLIB_ROOT ${angledep}/ext/cwgl/chromium-zlib)
 
+set(ANGLE_EXCLUDE_ENTRYPOINTS ON)
+
 add_subdirectory(${angledep}/ext/cwgl/angle-static-cmake angle)
 
 # Configure gl4es
