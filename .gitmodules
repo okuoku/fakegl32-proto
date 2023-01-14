@@ -4,3 +4,6 @@
 [submodule "yfrmbase"]
 	path = yfrmbase
 	url = https://github.com/okuoku/yfrmbase
+[submodule "cwgl-glue"]
+	path = cwgl-glue
+	url = https://github.com/okuoku/cwgl-glue
