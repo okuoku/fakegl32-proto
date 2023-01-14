@@ -74,8 +74,9 @@ add_subdirectory(gl4es)
 include_directories(${angledep}/ext/cwgl/angle/include)
 
 if(USE_CWGL_GLUE)
+    include_directories(yfrmbase/yuniframe/include)
     add_library(cwgl_glue SHARED
-        # Glue logics
+        # Glue logics(GLES)
         cwgl-glue/src/glue-s2.c
         cwgl-glue/src/glue-s3.c
         cwgl-glue/src/glue-s4.c
@@ -83,8 +84,12 @@ if(USE_CWGL_GLUE)
         cwgl-glue/src/glue-s6.c
         cwgl-glue/src/glue-snone.c
 
-        cwgl-glue/src/glue-egl.c
+        # Glue logic(EGL)
         cwgl-glue/src/glue-functbl.c
+        cwgl-glue/src/glue-egl.c
+
+        # Context
+        cwgl-glue/src/glue-ctx.c
         )
     target_link_libraries(cwgl_glue yfrm)
     set(gles_libs cwgl_glue)
