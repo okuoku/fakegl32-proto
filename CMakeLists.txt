@@ -91,7 +91,7 @@ if(USE_CWGL_GLUE)
         # Context
         cwgl-glue/src/glue-ctx.c
         )
-    target_link_libraries(cwgl_glue yfrm)
+    target_link_libraries(cwgl_glue PRIVATE yfrm)
     set(gles_libs cwgl_glue)
 else()
     # FIXME: Do we still need this?
@@ -132,4 +132,10 @@ if(COPY_TARGET)
         COMMAND ${CMAKE_COMMAND} -E copy
         $<TARGET_FILE:fakeopengl32> "${COPY_TARGET}/opengl32.dll"
         COMMENT "Installing (fake) OPENGL32.dll to ${COPY_TARGET}/opengl32.dll")
+    if(USE_CWGL_GLUE)
+        add_custom_command(TARGET cwgl_glue POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            $<TARGET_FILE:cwgl_glue> "${COPY_TARGET}/cwgl_glue.dll"
+            COMMENT "Installing (fake) cwgl_glue.dll to ${COPY_TARGET}/cwgl_glue.dll")
+    endif()
 endif()
