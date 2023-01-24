@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 3.0)
 project(fakegl C CXX)
 
-set(USE_CWGL_GLUE ON)
+if(NOT USE_ANGLE)
+    set(USE_CWGL_GLUE ON)
+else()
+    set(USE_CWGL_GLUE OFF)
+endif()
 set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/install)
 
 if(MSVC)
