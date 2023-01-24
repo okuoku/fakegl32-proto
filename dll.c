@@ -615,6 +615,11 @@ uintptr_t EXPORT wglCreateContext(uintptr_t hdc){
     //        And maybe EGL_SWAP_INTERVAL_ANGLE??
     r->surf = eglCreateWindowSurface(r->disp, cfg, hwnd, &wndattr);
 
+    if (initialized) {
+        close_gl4es();
+        initialized = 0;
+    }
+
     // FIXME: gl4es can only hold a context at once
     if(! global_egl_context){
         global_egl_context = eglCreateContext(r->disp, cfg, NULL, ctxattr);
@@ -628,11 +633,6 @@ uintptr_t EXPORT wglCreateContext(uintptr_t hdc){
     // FIXME: Make it current immediately so we can resolve
     //        APIs now
     eglMakeCurrent(r->disp, r->surf, r->surf, r->ctx);
-
-    if(initialized){
-        close_gl4es();
-        initialized = 0;
-    }
 
     ensure_glinit();
 
