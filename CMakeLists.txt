@@ -126,6 +126,28 @@ target_link_libraries(fakeopengl32
     OPENGL32
     ${gles_libs})
 
+if(USE_CWGL_GLUE)
+    add_custom_target(__force_deploy
+        ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE:glu32> "${COPY_TARGET}/glu32.dll"
+        COMMAND ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE:fakeopengl32> "${COPY_TARGET}/opengl32.dll"
+        COMMAND ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE:yfrm> "${COPY_TARGET}/yfrm.dll"
+        COMMAND ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE:cwgl_glue> "${COPY_TARGET}/cwgl_glue.dll"
+        DEPENDS glu32 fakeopengl32 cwgl_glue yfrm)
+else()
+    add_custom_target(__force_deploy_noglue
+        ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE:glu32> "${COPY_TARGET}/glu32.dll"
+        COMMAND ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE:yfrm> "${COPY_TARGET}/yfrm.dll"
+        COMMAND ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE:fakeopengl32> "${COPY_TARGET}/opengl32.dll"
+        DEPENDS glu32 fakeopengl32 yfrm)
+endif()
+
 if(COPY_TARGET)
     message(STATUS "Adding copy target to ${COPY_TARGET}")
     add_custom_command(TARGET glu32 POST_BUILD
